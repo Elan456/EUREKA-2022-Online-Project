@@ -3,49 +3,7 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\Skill Data\skills_review_Business &amp; Finance.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\Skill Data\skills_review_BusinessFinance.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\Skill Data\skills_review_Education &amp; Reference.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\Skill Data\skills_review_Shopping.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\Skill Data\skills_review_Social.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\Skill Data\skills_review_Travel &amp; Transportation.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\Skill Data\skills_review_Utilities.csv">
+        <entry key="\ModelMaking\CombinedProcessed.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -59,13 +17,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\Skill_Data\skills_review_Business &amp; Finance.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\Skill_Data\skills_review_Connected Car.csv">
           <value>
             <Attribute>
@@ -73,21 +24,14 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\Skill_Data\skills_review_Education &amp; Reference.csv">
+        <entry key="\Skill_Data\skills_review_Shopping.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="\Skill_Data\skills_review_Food &amp; Drink.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\Skill_Data\skills_review_Games &amp; Trivia.csv">
+        <entry key="\Skill_Data\skills_review_Utilities.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
