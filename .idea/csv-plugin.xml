@@ -10,7 +10,42 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\ModelMaking\SuperProcessed.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\ModelMaking\WithSentiment10000random.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\ModelMaking\WithSentiment4000.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\ModelMaking\WithSentiment5000random.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\Skill_Data\CombinedProcessed.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Skill_Data\skills_review_BusinessFinance.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -25,6 +60,13 @@
           </value>
         </entry>
         <entry key="\Skill_Data\skills_review_Shopping.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\Skill_Data\skills_review_TravelTransportation.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

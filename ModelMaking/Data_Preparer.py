@@ -5,8 +5,6 @@ sentiment_map = {'Negative': 0, 'Positive': 1, 'Compliant': 2}
 pd.set_option('display.max_columns', None)
 pd.options.mode.chained_assignment = None  # default='warn'
 
-open(r"..\hey.py", "r")
-
 
 def process_df(df):
     """
@@ -16,10 +14,10 @@ def process_df(df):
     """
     df1 = df[['content', 'star']]
     # exit()
-    df1_filtered = df1[df1['star'] != "3.0 out of 5 stars"]
-    sentiment_dict = {"1.0 out of 5 stars": 0, "2.0 out of 5 stars": 0, "4.0 out of 5 stars": 1, "5.0 out of 5 stars": 1}
-    df1_filtered['sentiment'] = df1_filtered['star'].map(sentiment_dict)
-    return df1_filtered
+    df1['star'] = df1['star'].apply(lambda x: int(x[0]))
+
+    df1 = df1[df1["content"].str.len().gt(2)]
+    return df1
 
 
 data_files_names = ["skills_review_BusinessFinance", "skills_review_Connected Car", "skills_review_EducationReference", "skills_review_FoodDrink", "skills_review_GamesTrivia", "skills_review_HealthFitness", "skills_review_Kids", "skills_review_Lifestyle", "skills_review_Local", "skills_review_MoviesTV", "skills_review_MusicAudio", "skills_review_News", "skills_review_NoveltyHumor", "skills_review_Productivity", "skills_review_Shopping", "skills_review_Smart Home", "skills_review_Social", "skills_review_Sports", "skills_review_TravelTransportation", "skills_review_Utilities", "skills_review_Weather"]
