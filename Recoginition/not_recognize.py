@@ -1,7 +1,9 @@
 import spacy
 from tqdm import tqdm
-nlp = spacy.load("en_core_web_lg")
+from spacytextblob.spacytextblob import SpacyTextBlob  # Necessary for the spacytextblob pipe to be added
 
+nlp = spacy.load("en_core_web_lg")
+nlp.add_pipe('spacytextblob')  # Adds sentiment analysis when nlp is used
 
 def get_nlp_reviews(reviews):
     # seperate reviews into short sentences
@@ -10,7 +12,7 @@ def get_nlp_reviews(reviews):
     with tqdm(total = len(reviews)) as pbar:
         for review in reviews:  
             x = pbar.update(1)
-            doc = nlp(review)  # Creates a spacy doc object that can have each sentence seprated based the on the string review
+            doc = nlp(review)  # Creates a spacy doc object that can have each sentence seprated based on the string review
             reviews_nlp.append(doc)
             sents_nlp = sents_nlp + list(doc.sents)
     return reviews_nlp, sents_nlp
@@ -29,34 +31,32 @@ def main():
     reviews = open('kids.txt').read().split('\n')[:-1]
     reviews_nlp, sents_nlp = get_nlp_reviews(reviews)
     words = ['understand', 'recognize']
-    print(spacy.explain("acl"))
-    print(spacy.explain("dobj"))
 
     for sent in sents_nlp:
         m = 0
         n = 0
+        #print(sent._.blob.polarity)
+        #print("i, getverb of i, i.dep_, i.head, i.children:")
         for i in sent:  # i is a word in the sentence sent
-            print("i, getverb of i, i.dep_, i.head:", i.text, getverb(i).text, i.dep_, i.head)
+            #print(i.text, getverb(i).text, i.dep_, i.head, [v.text for v in i.children])
             # i.lemma_ is the lemmatized form i
             # i.head is a word connected over a single arc
             # i.dep_ is how it is connected i.head
-            if i.dep_ == 'neg':
+            # print(i.dep_ == 'neg', sent._.blob.polarity < 0, getverb(i).lemma_)
+            if (i.dep_ == 'neg') != (sent._.blob.polarity < 0):  # XOR
                 if getverb(i).lemma_ in words:
                     m = 1
             #print("\nStart")
-            if i.dep_ == 'nsubj':
-                #print("i.lemma:", i.lemma_)
-                #print(i, i.lemma_, i.lemma_ == "I")
+            if i.dep_ == 'nsubj':  # If the token is a normal subject
                 if i.text.lower() == 'i':  # Checks if the user is misunderstanding not the Alexa eg. "I don't understand"
-                    #print("dep_ is nsubj and lemma is -pron-", i.text)
                     n = 1
-                    continue
-            #print("End\n")
         if m == 1 and n == 0:
-            print(sent)
+            print("VV:", sent, sent._.blob.polarity)
         elif m == 1 and n == 1:
-            print("THIS HIT THE NEGATED KEYWORD BUT I THING:")
-            print(sent)
+
+            print("I NOT UNDERSTANDING:", sent)
+        else:
+            print("NOT:", sent, sent._.blob.polarity)
 
 
 if __name__ == '__main__':
