@@ -5,8 +5,9 @@ import math
 import statistics as stat
 from scipy.stats import t as sci_t
 
-data = pd.read_csv("WithSentiment10000random.csv").to_numpy()
+data = pd.read_csv("WithSentimentALL.csv").to_numpy()
 
+# Index, content, rating, clean_content, sentiment
 
 reviews = {1: [],
            2: [],
@@ -17,13 +18,16 @@ reviews = {1: [],
 x = []
 y = []
 
+
 for r in data:
     if len(r[1]) > 0:
-        reviews[r[2]].append(r[3])
+        reviews[r[2]].append(r[4])
         x.append(r[2])
-        y.append(r[3])
+        y.append(r[4])
     else:
-        print(r[1], r[3])
+        print(r[1], r[4])
+
+
 
 
 
@@ -54,6 +58,7 @@ SESlope = math.sqrt(
     ) / math.sqrt(
     sum([(x_value - x_bar) ** 2 for x_value in x])
 )
+
 print("Standard Error of Slope: ", SESlope)
 print("Degrees of Freedom:", df)
 t = (b - 0) / SESlope
@@ -64,8 +69,18 @@ print("Given that there is no linear relationship between rating and sentiment t
 print("total # of reviews averaged together: ", sum([len(reviews[a]) for a in reviews]))
 
 # plt.plot(x, y, "o")
-plt.plot(x, [y_hat(a) for a in x], "-g")
-plt.scatter(x, [sentiment_averages[a] for a in x], facecolors="none", edgecolors="r", s=100)
-plt.boxplot(reviews.values())
-plt.savefig("All_10000.png")
+plt.xlabel("Sentiment")
+plt.ylabel("Frequency in Scientific Notation")
+plt.ticklabel_format(style="sci", axis="y", scilimits=(0, 0))
+plt.title("Frequency of Sentiments")
+
+
+# plt.plot(x, [y_hat(a) for a in x], "-g")
+# plt.scatter(x, [sentiment_averages[a] for a in x], facecolors="none", edgecolors="r", s=100)
+# plt.scatter(x, y)
+# plt.boxplot(reviews.values(), flierprops={'marker': 'o', 'markersize': 5, 'markerfacecolor': (0, 1, 1, 1)})
+plt.hist(y, bins=[-1 + .1*v for v in range(20)], edgecolor="black", color=(.59,.15,.96,1), zorder=0)
+
+# plt.hist(x, bins=[.5,1.5,2.5,3.5,4.5,5.5],edgecolor="black", color=(.95, .4, .2, 1), zorder=1)
+plt.savefig("SentimentHistogram.png")
 plt.show()

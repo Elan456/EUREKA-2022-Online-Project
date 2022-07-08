@@ -38,6 +38,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\ModelMaking\WithSentimentALL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\ModelMaking\WithSentimentNEWALL.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\Skill_Data\CombinedProcessed.csv">
           <value>
             <Attribute>
