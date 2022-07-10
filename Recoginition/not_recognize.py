@@ -91,12 +91,12 @@ Checks a sentence to see if the Alexa was having trouble understanding the user
         if i.tag_ == "PRP" and i.dep_ == "nsubj" and i.lemma_.lower() == "i":  # If the nominal subject is a personal pronoun that is "i"
             n = 1
     if m == 1 and n == 0:  # The sentence is about misunderstanding but not the user misunderstanding
-        print("WW:", sent, sent._.blob.polarity)
+        # print("WW:", sent, sent._.blob.polarity)
         return True
-    elif m == 1 and n == 1:  # The sentence is about misunderstanding but the user is the one misunderstanding
-        print("I NOT:", sent)  # The user is the one who could not understand
-    else:
-        print("NOT:", sent, sent._.blob.polarity)  # The sentence is not about misunderstanding
+    # elif m == 1 and n == 1:  # The sentence is about misunderstanding but the user is the one misunderstanding
+    #     # print("I NOT:", sent)  # The user is the one who could not understand
+    # else:
+    #     # print("NOT:", sent, sent._.blob.polarity)  # The sentence is not about misunderstanding
 
     return False
 
