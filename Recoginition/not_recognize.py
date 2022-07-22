@@ -66,13 +66,13 @@ Checks a sentence to see if the Alexa was having trouble understanding the user
     :param info: Whether individual token data is printed out for testing purposes
     :return: Boolean
     """
-    keywords = ['understand', 'recognize']
+    keywords = ['understand']  # Remove recognize because lots of false postives towards other devices not be reocognized
     m = 0  # Whether the sentence is about misunderstanding
     n = 0  # Whether the sentence is about the user misunderstanding instead of the Alexa
     keywordPresent = True in [(i.lemma_ in keywords) for i in sent]  # Checks if any of the keywords are in the sentence
     if keywordPresent and sent._.blob.polarity < 0:  # If there is a keyword and the sentiment is negative
         m = 1  # if n gets set to 1 this won't matter
-    for i in sent:  # i is a word in the sentence sent
+    for ind, i in enumerate(sent):  # i is a word (token) in the sentence sent
         """
         i.lemma_ is the lemmatized form of i
         i.head is a word connected over a single arc
@@ -80,16 +80,34 @@ Checks a sentence to see if the Alexa was having trouble understanding the user
         i.tag_ detailed part-of-speech tag
         i.pos_ part-of-speech
         """
+        gv = get_verb(i)  # The verb most closely related to the token
         if info:  # For debug and testing purposes
-            print(i, i.tag_, spacy.explain(i.tag_), "|||", i.pos_, spacy.explain(i.pos_), "|||", i.dep_, spacy.explain(i.dep_), "|", get_verb(i).lemma_)
+            print(i, i.tag_, spacy.explain(i.tag_), "|||", i.pos_, spacy.explain(i.pos_), "|||", i.dep_, spacy.explain(i.dep_), "i.head:", i.head, "|", gv.lemma_, "i.lemma", i.lemma_)
 
         # Checking if a negative modifier is acting on a keyword
         if i.dep_ == 'neg':  # Is the word negating something?
-            if get_verb(i).lemma_ in keywords:  # Is the most closely related verb to this word a keyword?
+            if gv.lemma_ in keywords:  # Is the most closely related verb to this word a keyword?
                 m = 1
+        # Could also check for YOU as the subject
+        if i.tag_ == "PRP" and i.dep_ == "nsubj":
+            if i.lemma_.lower() == "i" or i.lemma_.lower() == "you" or i.lemma_ == "they":  # If the nominal subject is a personal pronoun that is "i"
+                n = 1
+        if i.lemma_ == "understand":
+            try:
+                next_token_lemma = sent[ind + 1].lemma_
+                # print("nextotkenlemman:", next_token_lemma)
+                if next_token_lemma == "I" or next_token_lemma == "you" or next_token_lemma == "they":
 
-        if i.tag_ == "PRP" and i.dep_ == "nsubj" and i.lemma_.lower() == "i":  # If the nominal subject is a personal pronoun that is "i"
+                    m = 1
+            except IndexError:
+                pass
+
+        if gv.lemma_ == "recognize" and (i.lemma_ == "command" or i.lemma_ == "voice" or i.lemma_ == "instruction" or i.lemma_ == "answer"):
+            m = 1
+
+        if i.lemma_.lower() == "alexa" and i.head.lemma_ == "voice":  # Checks if the clause is about alexa's voice
             n = 1
+
     if m == 1 and n == 0:  # The sentence is about misunderstanding but not the user misunderstanding
         # print("WW:", sent, sent._.blob.polarity)
         return True

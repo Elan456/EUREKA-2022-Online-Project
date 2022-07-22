@@ -8,7 +8,6 @@ import multiprocessing as mp
 check = not_recognize.check_sent_for_poor_recognition
 
 
-
 # for result in tqdm.tqdm([pool.apply(get_sentiment, args=(row,)) for row in all_data]):
 #     results.append(result)
 
@@ -21,8 +20,13 @@ def add_if_understand(review):
             break
     return np.append(review, c)
 
+
 if __name__ == "__main__":
     reviews = pd.read_csv("WithSentimentALL.csv").to_numpy()[:, 1:]
+
+    # random_indexes = random.sample([f for f in range(reviews.shape[0])], 200)
+    # reviews = reviews[random_indexes]
+    print(len(reviews))
     full_reviews = []
     pool = mp.Pool()
     results = []
@@ -30,4 +34,4 @@ if __name__ == "__main__":
     for result in tqdm.tqdm(pool.imap_unordered(add_if_understand, reviews), total=len(reviews)):
         results.append(result)
 
-    pd.DataFrame(results, columns=["content", "rating", "clean text", "sentiment", "not understanding"]).to_csv("WithNotUnderstandALL.csv")
+    pd.DataFrame(results, columns=["content", "rating", "clean text", "sentiment", "not understanding"]).to_csv("ALLWithNotUnderstandV2.csv")
